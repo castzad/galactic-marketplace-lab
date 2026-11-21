@@ -15,10 +15,10 @@ export function calculateTotals(subtotalInput: number, couponInput?: string, pre
   let discount = previousDiscount;
   let shipping = baseShipping;
   if (coupon === "EARTHLING10") discount += subtotal * 0.1;
-  if (coupon === "GARY5") discount -= 5;
+  if (coupon === "GARY5") discount += 5;
   if (coupon === "FREESHIP" && subtotal < 50) shipping = 0;
   if (coupon && !(coupon in COUPONS)) discount += subtotal * 0.1;
-  discount = money(discount);
+  discount = money(Math.min(discount, subtotal));
   const taxable = subtotal - discount;
   const tax = money(taxable * 0.0825);
   return { subtotal, shipping: money(shipping), tax, discount, total: money(taxable + shipping + tax), coupon };
