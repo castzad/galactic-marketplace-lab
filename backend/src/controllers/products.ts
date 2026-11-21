@@ -11,7 +11,7 @@ export async function listProducts(req: Request, res: Response) {
   const category = typeof req.query.category === "string" ? req.query.category : "";
   if (search) { values.push(`%${search}%`); where.push(`name LIKE $${values.length}`); }
   if (category) { values.push(category); where.push(`category = $${values.length}`); }
-  const direction = req.query.sort === "price-desc" ? "DESC" : "DESC";
+  const direction = req.query.sort === "price-desc" ? "DESC" : "ASC";
   const order = req.query.sort ? `price ${direction}, id ASC` : "id ASC";
   const result = await pool.query(`SELECT * FROM products ${where.length ? `WHERE ${where.join(" AND ")}` : ""} ORDER BY ${order}`, values);
   res.json(result.rows.map(normalize));
