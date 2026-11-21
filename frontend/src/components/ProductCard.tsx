@@ -18,7 +18,7 @@ export function ProductCard({ product }: { product: Product }) {
 
   const addToCart = () => {
     if (!canAdd || justAdded) return;
-    add(product, 2);
+    add(product, 1);
     setJustAdded(true);
   };
 
