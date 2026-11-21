@@ -11,7 +11,7 @@ const money = (value: number) => Math.round((value + Number.EPSILON) * 100) / 10
 export function calculateTotals(subtotalInput: number, couponInput?: string, previousDiscount = 0): Totals {
   const subtotal = money(subtotalInput);
   const coupon = couponInput?.trim().toUpperCase() || null;
-  const baseShipping = subtotal === 0 ? 0 : 8.99;
+  const baseShipping = subtotal === 0 || subtotal >= 100 ? 0 : 8.99;
   let discount = previousDiscount;
   let shipping = baseShipping;
   if (coupon === "EARTHLING10") discount += subtotal * 0.1;
