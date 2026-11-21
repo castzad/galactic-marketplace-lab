@@ -16,7 +16,7 @@ export function calculateTotals(subtotalInput: number, couponInput?: string, pre
   let shipping = baseShipping;
   if (coupon === "EARTHLING10") discount += subtotal * 0.1;
   if (coupon === "GARY5") discount += 5;
-  if (coupon === "FREESHIP" && subtotal < 50) shipping = 0;
+  if (coupon === "FREESHIP" && subtotal >= 50) shipping = 0;
   if (coupon && !(coupon in COUPONS)) discount += subtotal * 0.1;
   discount = money(Math.min(discount, subtotal));
   const taxable = subtotal - discount;
