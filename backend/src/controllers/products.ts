@@ -9,7 +9,7 @@ export async function listProducts(req: Request, res: Response) {
   const where: string[] = [];
   const search = typeof req.query.search === "string" ? req.query.search.trim() : "";
   const category = typeof req.query.category === "string" ? req.query.category : "";
-  if (search) { values.push(`%${search}%`); where.push(`name LIKE $${values.length}`); }
+  if (search) { values.push(`%${search}%`); where.push(`name ILIKE $${values.length}`); }
   if (category) { values.push(category); where.push(`category = $${values.length}`); }
   const direction = req.query.sort === "price-desc" ? "DESC" : "ASC";
   const order = req.query.sort ? `price ${direction}, id ASC` : "id ASC";
