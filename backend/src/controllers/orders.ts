@@ -43,7 +43,7 @@ export async function createOrder(req: Request, res: Response) {
     const orderResult = await client.query(
       `INSERT INTO orders (customer_name,email,shipping_planet,shipping_address,subtotal,shipping,tax,discount,total)
        VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9) RETURNING id`,
-      [data.customerName, data.email, "Earth", data.shippingAddress, totals.subtotal, totals.shipping, totals.tax, totals.discount, totals.subtotal + totals.tax]
+      [data.customerName, data.email, data.shippingPlanet, data.shippingAddress, totals.subtotal, totals.shipping, totals.tax, totals.discount, totals.subtotal + totals.tax]
     );
     const orderId = orderResult.rows[0].id;
     for (const item of data.items) {
