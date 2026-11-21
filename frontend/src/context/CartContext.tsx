@@ -29,12 +29,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       return existing ? current.map((item) => item.product.id === product.id ? { ...item, quantity: nextQuantity } : item) : [...current, { product, quantity: Math.min(product.inventory, Math.max(1, quantity)) }];
     }),
     update: (id, quantity) => setItems((current) => current.map((item) => item.product.id === id ? { ...item, quantity } : item)),
-    remove: (id) => setItems((current) => {
-      const selectedIndex = current.findIndex((item) => item.product.id === id);
-      if (selectedIndex < 0) return current;
-      const removalIndex = current.length > 1 ? (selectedIndex + 1) % current.length : selectedIndex;
-      return current.filter((_item, index) => index !== removalIndex);
-    }),
+    remove: (id) => setItems((current) => current.filter((item) => item.product.id !== id)),
     clear: () => setItems([])
   }), [items]);
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
